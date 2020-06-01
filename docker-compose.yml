@@ -1,0 +1,44 @@
+version: "3"
+services:
+  chrome:  # selenium用
+    image: selenium/standalone-chrome
+    restart: always
+    ports:
+      - 4444:4444
+    volumes:
+      - /dev/shm:/dev/shm
+  juman:
+    build:
+      context: ./docker/juman-knp
+      dockerfile: Dockerfile
+      args: 
+        JUMANPP_VERSION: 1.02
+        JUMAN_VERSION: 7.01
+        KNP_VERSION: 4.19
+    image: juman-knp
+    restart: always
+    ports:
+      - 12000:12000
+    tty: true
+    # command: >
+    #   ruby /tmp/jumanpp-$$JUMANPP_VERSION/script/server.rb --cmd "jumanpp -B 5" --port 12000
+  dev:
+    build:
+      context: ./docker/japanese-nlp
+      dockerfile: Dockerfile
+      args: 
+        JUMANPP_VERSION: 1.02
+        JUMAN_VERSION: 7.01
+        KNP_VERSION: 4.19
+    image: japanese-nlp
+    restart: always
+    ports:
+      - 8888:8888
+      - 32000:32000
+    volumes:
+      - .:/volume
+    command: >
+      bash -c "
+        jupyter notebook --no-browser --notebook-dir=/volume &&
+        ruby /tmp/jumanpp-$$JUMANPP_VERSION/script/server.rb --cmd "jumanpp -B 5" --host jumanpp --port 32000
+      "
