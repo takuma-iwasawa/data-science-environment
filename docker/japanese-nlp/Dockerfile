@@ -120,8 +120,8 @@ RUN pip install optuna imbalanced-learn pandas-profiling japanize-matplotlib adj
 RUN pip install mlflow selenium
 
 # Install my tools
-RUN cd /volume/Github/prior-problem-plot/ \
-  && pip install .
+#RUN cd /volume/Github/prior-problem-plot/ \
+#  && pip install .
 
 # mount dir
 WORKDIR /volume
