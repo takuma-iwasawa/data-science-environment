@@ -12,26 +12,25 @@ RUN mkdir -p /root/.jupyter \
 
 EXPOSE 8888
 
-# Install gensim
-RUN conda install -y gensim
-
 # Install MeCab
 RUN apt install -y --no-install-recommends mecab libmecab-dev mecab-ipadic-utf8 \
   && pip install mecab-python3
 
-# Install mecab-ipadic-NEologd
+# Install mecab-ipadic-NEologd & enable ipadic
 RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git /tmp/neologd \
   && /tmp/neologd/bin/install-mecab-ipadic-neologd -n -a -y \
-  && sed -i -e "s|^dicdir.*$|dicdir = /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd|" /etc/mecabrc \
-  && rm -rf /tmp/neologd
+  && rm -rf /tmp/neologd \
+  && cp -r /var/lib/mecab/dic/ipadic-utf8/ /usr/lib/x86_64-linux-gnu/mecab/dic/ \
+  && cp -r /var/lib/mecab/dic/ipadic/ /usr/lib/x86_64-linux-gnu/mecab/dic/ \
+  && sed -i -e "s|^dicdir.*$|dicdir = /usr/lib/x86_64-linux-gnu/mecab/dic/ipadic-utf8|" /etc/mecabrc 
 
 # Install neologdn
 RUN pip install neologdn
 
+# Install JUMAN & KNP
 ARG JUMANPP_VERSION
 ARG JUMAN_VERSION
 ARG KNP_VERSION
-
 # install JUMANPP
 RUN wget http://lotus.kuee.kyoto-u.ac.jp/nl-resource/jumanpp/jumanpp-${JUMANPP_VERSION}.tar.xz -O /tmp/jumanpp.tar.xz &&\
     tar xJvf /tmp/jumanpp.tar.xz -C /tmp &&\
@@ -88,6 +87,9 @@ RUN cd /tmp \
   && rm -rf /tmp/cabocha-0.69 \
   && ldconfig
 
+# Install gensim
+RUN conda install -y gensim
+
 # Install fastText
 RUN pip install git+https://github.com/facebookresearch/fastText.git
 
@@ -101,7 +103,7 @@ RUN pip install pykakasi
 RUN pip install spacy
 
 # Install other nlp tools
-RUN pip install pyknp nltk JapaneseTokenizer DocumentFeatureSelection
+RUN pip install pyknp nltk JapaneseTokenizer DocumentFeatureSelection emoji
 
 # Install Graphviz
 RUN apt install -y --no-install-recommends graphviz graphviz-dev fonts-ipafont
@@ -113,9 +115,13 @@ RUN conda install -y -c conda-forge xgboost
 
 # Install other tools
 RUN conda install -y plotly pyarrow 
-RUN pip install optuna imbalanced-learn pandas-profiling japanize-matplotlib adjusttext
+RUN conda install -c conda-forge dask-ml
+RUN pip install optuna imbalanced-learn pandas-profiling japanize-matplotlib adjusttext japandas
 RUN pip install mlflow selenium
 
+# Install my tools
+RUN cd /volume/Github/prior-problem-plot/ \
+  && pip install .
 
 # mount dir
 WORKDIR /volume

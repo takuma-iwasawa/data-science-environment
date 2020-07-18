@@ -60,4 +60,7 @@ RUN apt-get clean &&\
     rm -rf /var/lib/apt/lists/* &&\    
     rm -f /etc/ssh/ssh_host_*
 
-CMD ruby /tmp/jumanpp-${JUMANPP_VERSION}/script/server.rb --cmd "jumanpp -B 5"
+# set env variables
+ENV JUMANPP_VERSION=${JUMANPP_VERSION}
+ENV JUMAN_VERSION=${JUMAN_VERSION}
+ENV KNP_VERSION=${KNP_VERSION}
