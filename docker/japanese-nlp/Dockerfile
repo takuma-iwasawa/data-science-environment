@@ -100,7 +100,7 @@ RUN pip install janome
 RUN pip install pykakasi
 
 # Install spaCy
-RUN pip install spacy
+RUN pip install spacy ginza
 
 # Install other nlp tools
 RUN pip install pyknp nltk JapaneseTokenizer DocumentFeatureSelection emoji
@@ -117,11 +117,11 @@ RUN conda install -y -c conda-forge xgboost
 RUN conda install -y plotly pyarrow 
 RUN conda install -c conda-forge dask-ml
 RUN pip install optuna imbalanced-learn pandas-profiling japanize-matplotlib adjusttext japandas
-RUN pip install mlflow selenium
+RUN pip install mlflow selenium pipreqs
 
 # Install my tools
-RUN cd /volume/Github/prior-problem-plot/ \
-  && pip install .
+# RUN cd /volume/Github/prior-problem-plot/ \
+#   && pip install .
 
 # mount dir
 WORKDIR /volume
