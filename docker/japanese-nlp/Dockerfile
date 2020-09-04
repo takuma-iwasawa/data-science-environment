@@ -22,7 +22,7 @@ RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git /tmp
   && rm -rf /tmp/neologd \
   && cp -r /var/lib/mecab/dic/ipadic-utf8/ /usr/lib/x86_64-linux-gnu/mecab/dic/ \
   && cp -r /var/lib/mecab/dic/ipadic/ /usr/lib/x86_64-linux-gnu/mecab/dic/ \
-  && sed -i -e "s|^dicdir.*$|dicdir = /usr/lib/x86_64-linux-gnu/mecab/dic/ipadic-utf8|" /etc/mecabrc 
+  && sed -i -e "s|^dicdir.*$|dicdir = /usr/lib/x86_64-linux-gnu/mecab/dic/ipadic-utf8|" /usr/local/etc/mecabrc 
 
 # Install neologdn
 RUN pip install neologdn
@@ -99,8 +99,8 @@ RUN pip install janome
 # Install pykakasi
 RUN pip install pykakasi
 
-# Install spaCy
-RUN pip install spacy ginza
+# Install spaCy + related tools
+RUN pip install spacy ginza camphr[juman]
 
 # Install other nlp tools
 RUN pip install pyknp nltk JapaneseTokenizer DocumentFeatureSelection emoji
@@ -113,10 +113,12 @@ RUN pip install graphviz
 RUN conda install -y -c conda-forge lightgbm
 RUN conda install -y -c conda-forge xgboost
 
-# Install other tools
+# Install other machine learning tools
 RUN conda install -y plotly pyarrow 
 RUN conda install -c conda-forge dask-ml
 RUN pip install optuna imbalanced-learn pandas-profiling japanize-matplotlib adjusttext japandas
+
+# Install other tools
 RUN pip install mlflow selenium pipreqs
 
 # Install my tools
