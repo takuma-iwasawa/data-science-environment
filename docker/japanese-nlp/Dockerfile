@@ -22,7 +22,8 @@ RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git /tmp
   && rm -rf /tmp/neologd \
   && cp -r /var/lib/mecab/dic/ipadic-utf8/ /usr/lib/x86_64-linux-gnu/mecab/dic/ \
   && cp -r /var/lib/mecab/dic/ipadic/ /usr/lib/x86_64-linux-gnu/mecab/dic/ \
-  && sed -i -e "s|^dicdir.*$|dicdir = /usr/lib/x86_64-linux-gnu/mecab/dic/ipadic-utf8|" /usr/local/etc/mecabrc 
+  && sed -i -e "s|^dicdir.*$|dicdir = /usr/lib/x86_64-linux-gnu/mecab/dic/ipadic-utf8|" /etc/mecabrc \
+  && cp /etc/mecabrc /usr/local/etc/mecabrc 
 
 # Install neologdn
 RUN pip install neologdn
@@ -119,7 +120,7 @@ RUN conda install -c conda-forge dask-ml
 RUN pip install optuna imbalanced-learn pandas-profiling japanize-matplotlib adjusttext japandas
 
 # Install other tools
-RUN pip install mlflow selenium pipreqs
+RUN pip install mlflow selenium pipreqs swifter
 
 # Install my tools
 # RUN cd /volume/Github/prior-problem-plot/ \
