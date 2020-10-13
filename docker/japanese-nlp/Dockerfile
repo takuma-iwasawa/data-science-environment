@@ -89,7 +89,7 @@ RUN cd /tmp \
   && ldconfig
 
 # Install gensim
-RUN conda install -y gensim
+RUN pip install gensim
 
 # Install fastText
 RUN pip install git+https://github.com/facebookresearch/fastText.git
@@ -115,12 +115,12 @@ RUN conda install -y -c conda-forge lightgbm
 RUN conda install -y -c conda-forge xgboost
 
 # Install other machine learning tools
-RUN conda install -y plotly pyarrow 
-RUN conda install -c conda-forge dask-ml
-RUN pip install optuna imbalanced-learn pandas-profiling japanize-matplotlib adjusttext japandas
+RUN pip uninstall -y typing  #optunaが入らないので
+RUN pip install pyarrow imbalanced-learn mlflow optuna
+RUN pip install plotly pandas-profiling japanize-matplotlib adjusttext japandas swifter
 
 # Install other tools
-RUN pip install mlflow selenium pipreqs swifter
+RUN pip install selenium pipreqs
 
 # Install my tools
 # RUN cd /volume/Github/prior-problem-plot/ \
