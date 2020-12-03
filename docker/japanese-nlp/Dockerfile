@@ -117,14 +117,10 @@ RUN conda install -y -c conda-forge xgboost
 # Install other machine learning tools
 RUN pip uninstall -y typing  #optunaが入らないので
 RUN pip install pyarrow imbalanced-learn mlflow optuna
-RUN pip install plotly pandas-profiling japanize-matplotlib adjusttext japandas swifter
+RUN pip install plotly kaleido pandas-profiling japanize-matplotlib adjusttext japandas swifter
 
 # Install other tools
 RUN pip install selenium pipreqs
-
-# Install my tools
-# RUN cd /volume/Github/prior-problem-plot/ \
-#   && pip install .
 
 # mount dir
 WORKDIR /volume
