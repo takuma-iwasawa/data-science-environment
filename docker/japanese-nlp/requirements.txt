@@ -1,0 +1,37 @@
+# Install NLP tools
+nltk
+gensim
+janome
+pykakasi
+spacy 
+ginza 
+pyknp
+mecab-python3
+camphr[juman]
+
+JapaneseTokenizer
+DocumentFeatureSelection
+neologdn
+emoji
+
+# Install other machine learning tools
+pyarrow
+imbalanced-learn
+mlflow
+optuna
+pandas-profiling
+japandas
+swifter
+
+# Install visualizing tools
+japanize-matplotlib
+adjusttext
+scikit-plot
+plotly
+kaleido
+openpyxl
+
+# Install other tools
+graphviz
+selenium
+pipreqs
