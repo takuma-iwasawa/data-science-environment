@@ -21,12 +21,14 @@ RUN apt-get install -y --fix-missing gcc &&\
     apt-get install -y --fix-missing wget
 # to decompress *.tar.bz2
 RUN apt-get install -y --fix-missing bzip2
+
 # install JUMANPP
 RUN wget http://lotus.kuee.kyoto-u.ac.jp/nl-resource/jumanpp/jumanpp-${JUMANPP_VERSION}.tar.xz -O /tmp/jumanpp.tar.xz &&\
     tar xJvf /tmp/jumanpp.tar.xz -C /tmp &&\
     cd /tmp/jumanpp-${JUMANPP_VERSION} &&\
     ./configure --prefix=/usr/local/ && make && make install &&\
     rm -rf /var/cache/apk/*
+
 # install JUMAN
 RUN wget http://nlp.ist.i.kyoto-u.ac.jp/nl-resource/juman/juman-${JUMAN_VERSION}.tar.bz2 -O /tmp/juman.tar.bz2 &&\ 
     tar xf /tmp/juman.tar.bz2 -C /tmp &&\
@@ -35,6 +37,7 @@ RUN wget http://nlp.ist.i.kyoto-u.ac.jp/nl-resource/juman/juman-${JUMAN_VERSION}
     rm -rf /tmp/juman-${JUMAN_VERSION} &&\
     rm -rf /var/cache/apk/* &&\
     apt-get update && apt-get install -y --fix-missing libjuman4
+
 # install KNP
 RUN apt-get install -y --fix-missing zlib1g-dev &&\
     wget http://nlp.ist.i.kyoto-u.ac.jp/nl-resource/knp/knp-${KNP_VERSION}.tar.bz2 -O /tmp/knp.tar.bz2 &&\
@@ -59,8 +62,3 @@ RUN apt-get clean &&\
     rm -rf /var/tmp/* &&\
     rm -rf /var/lib/apt/lists/* &&\    
     rm -f /etc/ssh/ssh_host_*
-
-# set env variables
-ENV JUMANPP_VERSION=${JUMANPP_VERSION}
-ENV JUMAN_VERSION=${JUMAN_VERSION}
-ENV KNP_VERSION=${KNP_VERSION}

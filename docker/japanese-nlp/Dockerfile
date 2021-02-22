@@ -1,5 +1,5 @@
 # FROM continuumio/anaconda3
-FROM jupyter/scipy-notebook
+FROM jupyter/scipy-notebook:latest
 
 USER root
 
@@ -12,15 +12,6 @@ RUN apt-get update -y --fix-missing &&\
     apt-get install -y --no-install-recommends build-essential apt-utils unzip libboost-dev iputils-ping net-tools procps curl file &&\
     apt-get clean &&\
     rm -rf /var/lib/apt/lists/*
-
-# Create Jupyter Notebook config file
-# RUN mkdir -p /root/.jupyter &&\
-#     echo "c.NotebookApp.allow_root = True" >> /root/.jupyter/jupyter_notebook_config.py &&\
-#     echo "c.NotebookApp.ip = '*'" >> /root/.jupyter/jupyter_notebook_config.py &&\
-#     echo "c.NotebookApp.token = ''" >> /root/.jupyter/jupyter_notebook_config.py &&\
-#     conda install -y -c conda-forge jupyter_contrib_nbextensions
-
-EXPOSE 8888
 
 # Install MeCab
 RUN apt-get update &&\
@@ -102,10 +93,6 @@ RUN cd /tmp &&\
 RUN pip install git+https://github.com/facebookresearch/fastText.git
 # Install Graphviz
 RUN apt-get install -y --no-install-recommends graphviz graphviz-dev fonts-ipafont
-
-# Install machine learning algorithms
-RUN conda install -y -c conda-forge lightgbm
-RUN conda install -y -c conda-forge xgboost
 
 # Install requirements
 COPY requirements.txt requirements.txt

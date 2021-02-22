@@ -15,13 +15,18 @@ neologdn
 emoji
 
 # Install other machine learning tools
-pyarrow
+lightgbm
+xgboost
 imbalanced-learn
 mlflow
 optuna
-pandas-profiling
+
+# Install data engineering tools
+pyarrow
 japandas
 swifter
+pdpipe
+xfeat
 
 # Install visualizing tools
 japanize-matplotlib
@@ -30,8 +35,11 @@ scikit-plot
 plotly
 kaleido
 openpyxl
+pandas-profiling
+sweetviz
 
 # Install other tools
 graphviz
 selenium
 pipreqs
+cookiecutter
